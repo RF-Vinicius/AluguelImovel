@@ -97,8 +97,6 @@ public class Endereco {
 		Endereco teste = new Endereco("Teste Rua", 336, "XX", "Jaguaquara", 45345000);
 		System.out.print(teste.getEstado());
 	}
-
-	
 	
 }	
 

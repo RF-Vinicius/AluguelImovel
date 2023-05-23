@@ -83,23 +83,45 @@ public class Proprietario {
 		return listImovel;
 	}
 	
-	public static void main(String[] args) {
-		Imovel imovel01 = new Imovel(454522554, "Rua Adelmário Pinheiro", 2305, 4190000, "BA", "Salvador", "Apartamento", "Aluguel");
-		Imovel imovel02 = new Imovel(454522554, "Maracás", 23, 4190000, "BA", "Salvador", "Apartamento", "Aluguel");
-		Imovel imovel03 = new Imovel(454522554, "Joaquim Floriano", 305, 4190000, "BA", "Salvador", "Casa", "Aluguel");
-		ArrayList<Imovel> imoveisV = new ArrayList<Imovel>();
-		imoveisV.add(imovel01);
-		imoveisV.add(imovel02);
-		imoveisV.add(imovel03);
-		
-		Proprietario vinicius = new Proprietario("Vinicius Reis", 44542, 45454, "Mario moreira", 778, 45345, "PE", "Itagoiania", imoveisV);
-		
-		System.out.println(vinicius.listImvovelPorTipo("Apartamento"));
-		for (Imovel imovel: vinicius.listImvovelPorTipo("Apartamento")) {
-			System.out.println(imovel.getTipo());
+	public boolean alugarImovel(int iptu, String date) {
+		for(Imovel imovel: imoveis) {
+			if(imovel.getIptu() == iptu) {
+				if(imovel.isDisponivel(date)) {
+					imovel.getAgenda().setAlugado(date);
+					return true;
+				}
+			}
 		}
+		return false;
 	}
-
 	
+	public boolean bloquearImovel(int iptu, String date) {
+		for(Imovel imovel: imoveis) {
+			if(imovel.getIptu() == iptu) {
+				if(imovel.isDisponivel(date)) {
+					imovel.getAgenda().setBloqueado(date);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean disponibilizarImovel(int iptu, String date) {
+		for(Imovel imovel: imoveis) {
+			if(imovel.getIptu() == iptu) {
+				imovel.getAgenda().setDisponivel(date);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean alugarUmImovel(Imovel imovel, String date) {
+		if(imovel.isDisponivel(date)) {
+			imovel.getAgenda().setAlugado(date);
+		}
+		return false;
+	}
 
 }
